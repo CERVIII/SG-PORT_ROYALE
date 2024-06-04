@@ -11,7 +11,7 @@
 			font-size: small;
 			border-collapse: collapse;
 			width: 10%;
-			height: 10%;;
+			height: 10%;
 		}
 
 		td,
@@ -43,7 +43,8 @@
 				<th>Sangas</th>
 				<td colspan="2" id="next_level">5000</td>
 				<td rowspan="2">
-					<button onclick="mejorarNivel()">Mejorar</button>
+					<!-- TODO: ADD SPECIFIC GROUP -->
+					<button onclick="mejorarNivel({group:1})">Mejorar</button>
 				</td>
 			</tr>
 			<tr>
@@ -648,8 +649,14 @@
 	</div>
 
 	<script>
-		var dinero = 30000; // Dinero inicial
-		var nivelBarco = 1;
+		//TODO: ADD SPECIFIC GROUP
+		var dinero = getDinero({
+			group: 1,
+		})
+		//TODO: ADD SPECIFIC GROUP
+		var nivelBarco = getLevel({
+			group: 1,
+		})
 		var next_level = {
 			1: 0,
 			2: 5000,
@@ -694,10 +701,78 @@
 			cell.innerText = currentValue + amount;
 		}
 
-		function updateDinero(amount) {
-			dinero += amount;
-			document.getElementById("dinero").innerText = dinero;
+		async function updateDinero({
+			amount,
+			group,
+		}) {			 
+			const res = await fetch(
+				'http://localhost:3000/money',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						group,
+						amount
+					})
+				}
+			);
+			if(!res.ok) {
+				alert("error al actualizar el dinero");
+			}
+			const data = await res.json();
+			console.log(data);
+			document.getElementById("dinero").innerText = data.result;
 		}
+
+		async function getDinero({
+			group,
+		}) {			 
+			const res = await fetch(
+				`http://localhost:3000/money/${group}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
+			);
+			if(!res.ok) {
+				alert("error al obtener el dinero");
+			}
+			const data = await res.json();
+			const dinero = data.result;
+			document.getElementById("dinero").innerText = dinero;
+			return dinero;
+		}
+
+		async function getLevel({
+			group,
+		}) {			 
+			const res = await fetch(
+				`http://localhost:3000/level/${group}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
+			);
+			if(!res.ok) {
+				alert("error al obtener el nivel del barco");
+			}
+			const data = await res.json();
+			const nivelBarco = data.result;
+			document.getElementById("nivel_barco").innerText = nivelBarco;
+			document.getElementById("next_level").innerText = next_level[nivelBarco + 1];
+			document.getElementById("tiradas").innerText = (tiradas[nivelBarco + 1]);
+			document.getElementById("max_carga").innerText = (maxProductosPorNivel[nivelBarco]);
+			document.getElementById("max_cañon").innerText = (maxCañones[nivelBarco]);
+			document.getElementById("max_municion").innerText = (maxMunicion[nivelBarco]);
+			return nivelBarco;
+		}
+
 
 		function sumarProductosBarco() {
 			var productos = ['Trigo', 'Fruta', 'Maiz', 'Algodon', 'Azucar', 'Cacao', 'Carne', 'Cafe', 'Ron', 'Especias', 'Vino', 'Herramientas']; // Añade todos los productos excepto 'Cañones' y 'Municion'
@@ -711,7 +786,7 @@
 			return total;
 		}
 
-		function buyProduct(product, cost) {
+		async function buyProduct(product, cost) {
 			var selectElement = document.getElementById("Select_" + product);
 			var selectCañones = document.getElementById('barco_Cañones');
 			var selectMunicion = document.getElementById('barco_Municion');
@@ -732,40 +807,53 @@
 				else
 					actualAmount = Math.min(amount, maxAffordableAmount, (maxAmountByLevel - sumarProductosBarco())); // Compra la cantidad más baja entre la deseada, la máxima asequible y el límite de nivel
 				var totalCost = actualAmount * cost;
-				updateDinero(-totalCost);
+				await updateDinero({
+					// TODO: ADD SPECIFIC GROUP
+					amount: -totalCost,
+					group: 1,
+				});
+				await updateBoat(product, actualAmount); // TODO: ADD GROUP
 				updateCell('barco_' + product, actualAmount);
 			}
 		}
 
-		function sellProduct(product, cost) {
+		async function sellProduct(product, cost) {
 			var selectElement = document.getElementById("Select_" + product);
 			var amount = parseInt(selectElement.value);
 			var barcoValue = parseInt(document.getElementById('barco_' + product).innerText);
 			var cantidadVendida = Math.min(amount, barcoValue); // Vendemos la cantidad menor entre la solicitada y la disponible en el barco
 			var totalSale = cantidadVendida * cost;
-			updateDinero(totalSale);
+			await updateDinero(totalSale);
 			updateCell('barco_' + product, -cantidadVendida);
 		}
 
-		function mejorarNivel() {
-			if (nivelBarco < 5) {
-				if (dinero >= next_level[nivelBarco]) {
-					nivelBarco++;
-					updateDinero(-next_level[nivelBarco]);
-					document.getElementById("nivel_barco").innerText = nivelBarco;
-					document.getElementById("next_level").innerText = next_level[nivelBarco + 1];
-					document.getElementById("tiradas").innerText = (tiradas[nivelBarco + 1]);
-					document.getElementById("max_carga").innerText = (maxProductosPorNivel[nivelBarco]);
-					document.getElementById("max_cañon").innerText = (maxCañones[nivelBarco]);
-					document.getElementById("max_municion").innerText = (maxMunicion[nivelBarco]);
-					alert("Nivel del barco mejorado a " + nivelBarco);
+		async function mejorarNivel({group}) {
+			//TODO: ADD SPECIFIC GROUP
+			const res = await fetch(
+				'http://localhost:3000/level',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						//TODO: ADD SPECIFIC BOAT
+						group: 1
+					})
 				}
-				else {
-					alert("No tienes suficiente dinero para mejorar el barco");
-				}
-			} else {
-				alert("El barco ya está en el nivel máximo");
+			);
+			if(!res.ok) {
+				alert("error al mejorar el nivel del barco");
 			}
+			const data = await res.json();
+			console.log(data);
+			const level = await getLevel({
+				group: 1,
+			});
+			const dinero = await getDinero({
+				group: 1,
+			});
+			alert(`El nivel del barco actual es ${level} y el dinero actual es ${dinero}` );
 		}
 	</script>
 </body>

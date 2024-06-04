@@ -1,0 +1,38 @@
+{
+    "1": {
+        "level": 1,
+        "boat": {
+            "Trigo": 0,
+            "Fruta": 0,
+            "Maiz": 0,
+            "Algodon": 0,
+            "Azucar": 0,
+            "Cacao": 0,
+            "Carne": 0,
+            "Cafe": 0,
+            "Ron": 0,
+            "Especias": 0,
+            "Vino": 0,
+            "Herramientas": 0,
+            "Cañones": 0,
+            "Municion": 0
+        },
+        "storage": {
+            "Trigo": 0,
+            "Fruta": 0,
+            "Maiz": 0,
+            "Algodon": 0,
+            "Azucar": 0,
+            "Cacao": 0,
+            "Carne": 0,
+            "Cafe": 0,
+            "Ron": 0,
+            "Especias": 0,
+            "Vino": 0,
+            "Herramientas": 0,
+            "Cañones": 0,
+            "Municion": 0
+        },
+        "money": 30000
+    }
+}
