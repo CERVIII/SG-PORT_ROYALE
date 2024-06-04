@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tabla de Comercio</title>
+	<style>
+		table {
+			font-family: Arial, sans-serif;
+			font-size: small;
+			border-collapse: collapse;
+			width: 10%;
+			height: 10%;;
+		}
+
+		td,
+		th {
+			border: 2px solid #ff9100;
+			text-align: center;
+			padding: 5px;
+		}
+
+		tr:nth-child() {
+			background-color: #dcdcdc;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="Grupo_1" style="text-align: center;">
+		<h2>GRUPO 1</h2>
+		<table>
+			<tr>
+				<th colspan="2">Nivel del Barco</th>
+				<td colspan="1" id="nivel_barco">1</td>
+				<th colspan="4">Requisitos Mejora</th>
+			</tr>
+			<tr>
+				<th colspan="1"">Carga Máx</th>
+				<th colspan="1">Cañones Máx</th>
+				<th colspan="1">Municion Máx</th>
+				<th>Sangas</th>
+				<td colspan="2" id="next_level">5000</td>
+				<td rowspan="2">
+					<button onclick="mejorarNivel()">Mejorar</button>
+				</td>
+			</tr>
+			<tr>
+				<td id="max_carga">50</td>
+				<td id="max_cañon">10</td>
+				<td id="max_municion">20</td>
+				<th>Movimientos</th>
+				<td rowspan="1" colspan="2" id="tiradas">12 movs.</td>
+			</tr>
+			<tr>
+				<th colspan="3">Sangas Actual</th>
+				<th colspan="6" id="dinero">30000</th>
+			</tr>
+			<tr>
+				<th></th>
+				<th>Venta</th>
+				<th>Producto</th>
+				<th colspan="2">Compra</th>
+				<th>Barco</th>
+				<th>Almacén</th>
+			</tr>
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Trigo', 50)">50</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/01-Trigo.png" alt="Trigo">
+					<br>Trigo
+				</td>
+				<td>
+					<button onclick="buyProduct('Trigo', 50)">50</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Trigo', 100)">100</button>
+				</td>
+				<td rowspan="3" id="barco_Trigo">0</td>
+				<td rowspan="3" id="almacen_Trigo">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Trigo', 100)">100</button>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Trigo', 150)">150</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Trigo', 200)">200</button>
+				</td>
+				<td>
+					<select id="Select_Trigo">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Trigo', 250)">250</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Fruta', 50)">50</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/02-Fruta.png" alt="Fruta">
+					<br>Fruta
+				</td>
+				<td>
+					<button onclick="buyProduct('Fruta', 50)">50</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Fruta', 100)">100</button>
+				</td>
+				<td rowspan="3" id="barco_Fruta">0</td>
+				<td rowspan="3" id="almacen_Fruta">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Fruta', 100)">100</button>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Fruta', 150)">150</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Fruta', 200)">200</button>
+				</td>
+				<td>
+					<select id="Select_Fruta">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Fruta', 250)">250</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Maiz', 50)">50</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/03-Maiz.jpeg" alt="Maiz">
+					<br>Maiz
+				</td>
+				<td>
+					<button onclick="buyProduct('Maiz', 50)">50</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Maiz', 100)">100</button>
+				</td>
+				<td rowspan="3" id="barco_Maiz">0</td>
+				<td rowspan="3" id="almacen_Maiz">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Maiz', 100)">100</button>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Maiz', 150)">150</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Maiz', 200)">200</button>
+				</td>
+				<td>
+					<select id="Select_Maiz">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Maiz', 250)">250</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Algodon', 300)">300</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/04-algodon.png" alt="Algodon">
+					<br>Algodon
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Algodon', 350)">350</button>
+				</td>
+				<td rowspan="3" id="barco_Algodon">0</td>
+				<td rowspan="3" id="almacen_Algodon">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Algodon', 200)">200</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Algodon', 200)">200</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Algodon', 250)">250</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Algodon', 350)">350</button>
+				</td>
+				<td>
+					<select id="Select_Algodon">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Algodon', 400)">400</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Azucar', 300)">300</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/05-azucar.jpeg" alt="Azucar">
+					<br>Azucar
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Azucar', 350)">350</button>
+				</td>
+				<td rowspan="3" id="barco_Azucar">0</td>
+				<td rowspan="3" id="almacen_Azucar">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Azucar', 200)">200</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Azucar', 200)">200</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Azucar', 250)">250</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Azucar', 350)">350</button>
+				</td>
+				<td>
+					<select id="Select_Azucar">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Azucar', 400)">400</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Cacao', 300)">300</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/06-cacao.jpeg" alt="Cacao">
+					<br>Cacao
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Cacao', 350)">350</button>
+				</td>
+				<td rowspan="3" id="barco_Cacao">0</td>
+				<td rowspan="3" id="almacen_Cacao">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Cacao', 200)">200</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Cacao', 200)">200</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Cacao', 250)">250</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Cacao', 350)">350</button>
+				</td>
+				<td>
+					<select id="Select_Cacao">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Cacao', 400)">400</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Carne', 600)">600</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/07-carne.jpeg" alt="Carne">
+					<br>Carne
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Carne', 650)">650</button>
+				</td>
+				<td rowspan="3" id="barco_Carne">0</td>
+				<td rowspan="3" id="almacen_Carne">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Carne', 500)">500</button>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Carne', 550)">550</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Carne', 350)">350</button>
+				</td>
+				<td>
+					<select id="Select_Carne">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td>
+					<button onclick="buyProduct('Carne', 350)">350</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Carne', 400)">400</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Cafe', 600)">600</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/08-Cafe.jpeg" alt="Cafe">
+					<br>Cafe
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Cafe', 650)">650</button>
+				</td>
+				<td rowspan="3" id="barco_Cafe">0</td>
+				<td rowspan="3" id="almacen_Cafe">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Cafe', 500)">500</button>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Cafe', 550)">550</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Cafe', 350)">350</button>
+				</td>
+				<td>
+					<select id="Select_Cafe">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td>
+					<button onclick="buyProduct('Cafe', 350)">350</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Cafe', 400)">400</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Ron', 600)">600</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/09-ron.png" alt="Ron">
+					<br>Ron
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Ron', 650)">650</button>
+				</td>
+				<td rowspan="3" id="barco_Ron">0</td>
+				<td rowspan="3" id="almacen_Ron">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Ron', 500)">500</button>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Ron', 550)">550</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Ron', 350)">350</button>
+				</td>
+				<td>
+					<select id="Select_Ron">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td>
+					<button onclick="buyProduct('Ron', 350)">350</button>
+				</td>
+				<td>
+					<button onclick="buyProduct('Ron', 400)">400</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Especias', 1000)">1000</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/10-especias.png" alt="Especias">
+					<br>Especias
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Especias', 1000)">1000</button>
+				</td>
+				<td rowspan="3" id="barco_Especias">0</td>
+				<td rowspan="3" id="almacen_Especias">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Especias', 900)">900</button>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Especias', 900)">900</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Especias', 600)">600</button>
+				</td>
+				<td>
+					<select id="Select_Especias">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Especias', 700)">700</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Vino', 1000)">1000</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/11-vino.png" alt="Vino">
+					<br>Vino
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Vino', 1000)">1000</button>
+				</td>
+				<td rowspan="3" id="barco_Vino">0</td>
+				<td rowspan="3" id="almacen_Vino">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Vino', 900)">900</button>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Vino', 900)">900</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Vino', 600)">600</button>
+				</td>
+				<td>
+					<select id="Select_Vino">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Vino', 700)">700</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td>
+					<button onclick="sellProduct('Herramientas', 1100)">1100</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/12-herramientas.png" alt="Herramientas">
+					<br>Herramientas
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Herramientas', 1100)">1100</button>
+				</td>
+				<td rowspan="3" id="barco_Herramientas">0</td>
+				<td rowspan="3" id="almacen_Herramientas">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+				<td>
+					<button onclick="sellProduct('Herramientas', 1000)">1000</button>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Herramientas', 1000)">1000</button>
+				</td>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<button onclick="sellProduct('Herramientas', 700)">700</button>
+				</td>
+				<td>
+					<select id="Select_Herramientas">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+				<td colspan="2">
+					<button onclick="buyProduct('Herramientas', 800)">800</button>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td rowspan="3">
+					<button onclick="sellProduct('Cañones', 1500)">1500</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/13-cañon.jpeg" alt="Cañones">
+					<br>Cañones
+				</td>
+				<td rowspan="3" colspan="2">
+					<button onclick="buyProduct('Cañones', 1500)">1500</button>
+				</td>
+				<td rowspan="3" id="barco_Cañones">0</td>
+				<td rowspan="3" id="almacen_Cañones">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<select id="Select_Cañones">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<th>Aldea</th>
+				<td rowspan="3">
+					<button onclick="sellProduct('Municion', 200)">200</button>
+				</td>
+				<td rowspan="2">
+					<img width="54" height="54" src="../img/14-municion.jpeg" alt="Municion">
+					<br>Municion
+				</td>
+				<td rowspan="3" colspan="2">
+					<button onclick="buyProduct('Municion', 200)">200</button>
+				</td>
+				<td rowspan="3" id="barco_Municion">0</td>
+				<td rowspan="3" id="almacen_Municion">0</td>
+			</tr>
+			<tr>
+				<th>Pueblo</th>
+			</tr>
+			<tr>
+				<th>Ciudad</th>
+				<td>
+					<select id="Select_Municion">
+						<option value="1">X1</option>
+						<option value="10">X10</option>
+						<option value="50">X50</option>
+					</select>
+				</td>
+			</tr>
+			<!-- Agrega más filas según sea necesario -->
+		</table>
+
+		<!-- Repite para cada grupo -->
+	</div>
+
+	<script>
+		var dinero = 30000; // Dinero inicial
+		var nivelBarco = 1;
+		var next_level = {
+			1: 0,
+			2: 5000,
+			3: 7500,
+			4: 10000,
+			5: 15000,
+			6: 'MAX LEVEL'
+		};
+		var tiradas = {
+			1: '0 movs.',
+			2: '12 movs.',
+			3: '24 movs.',
+			4: '36 movs.',
+			5: '48 movs.',
+			6: 'MAX LEVEL'
+		};
+		var maxProductosPorNivel = {
+			1: 50,
+			2: 75,
+			3: 150,
+			4: 150,
+			5: 300
+		};
+		var maxCañones = {
+			1: 10,
+			2: 15,
+			3: 20,
+			4: 25,
+			5: 25
+		};
+		var maxMunicion = {
+			1: 20,
+			2: 25,
+			3: 30,
+			4: 35,
+			5: 35
+		};
+
+		function updateCell(cellId, amount) {
+			var cell = document.getElementById(cellId);
+			var currentValue = parseInt(cell.innerText);
+			cell.innerText = currentValue + amount;
+		}
+
+		function updateDinero(amount) {
+			dinero += amount;
+			document.getElementById("dinero").innerText = dinero;
+		}
+
+		function sumarProductosBarco() {
+			var productos = ['Trigo', 'Fruta', 'Maiz', 'Algodon', 'Azucar', 'Cacao', 'Carne', 'Cafe', 'Ron', 'Especias', 'Vino', 'Herramientas']; // Añade todos los productos excepto 'Cañones' y 'Municion'
+			var total = 0;
+			productos.forEach(function (producto) {
+				var cell = document.getElementById('barco_' + producto);
+				if (cell) {
+					total += parseInt(cell.innerText);
+				}
+			});
+			return total;
+		}
+
+		function buyProduct(product, cost) {
+			var selectElement = document.getElementById("Select_" + product);
+			var selectCañones = document.getElementById('barco_Cañones');
+			var selectMunicion = document.getElementById('barco_Municion');
+			if (!selectElement) return;
+			var amount = parseInt(selectElement.value);
+			var cañones = parseInt(selectCañones.innerText);
+			var municion = parseInt(selectMunicion.innerText);
+			var maxCañonesByLevel = maxCañones[nivelBarco];
+			var maxMunicionByLevel = maxMunicion[nivelBarco];
+			var maxAffordableAmount = Math.floor(dinero / cost); // Cantidad máxima que el jugador puede pagar
+			var maxAmountByLevel = maxProductosPorNivel[nivelBarco]; // Cantidad máxima por nivel de barco
+			if (maxAffordableAmount > 0) {
+				var actualAmount = 0;
+				if (product === 'Cañones')
+					actualAmount = Math.min(amount, maxAffordableAmount, (maxCañonesByLevel - cañones));
+				else if (product === 'Municion')
+					actualAmount = Math.min(amount, maxAffordableAmount, (maxMunicionByLevel - municion));
+				else
+					actualAmount = Math.min(amount, maxAffordableAmount, (maxAmountByLevel - sumarProductosBarco())); // Compra la cantidad más baja entre la deseada, la máxima asequible y el límite de nivel
+				var totalCost = actualAmount * cost;
+				updateDinero(-totalCost);
+				updateCell('barco_' + product, actualAmount);
+			}
+		}
+
+		function sellProduct(product, cost) {
+			var selectElement = document.getElementById("Select_" + product);
+			var amount = parseInt(selectElement.value);
+			var barcoValue = parseInt(document.getElementById('barco_' + product).innerText);
+			var cantidadVendida = Math.min(amount, barcoValue); // Vendemos la cantidad menor entre la solicitada y la disponible en el barco
+			var totalSale = cantidadVendida * cost;
+			updateDinero(totalSale);
+			updateCell('barco_' + product, -cantidadVendida);
+		}
+
+		function mejorarNivel() {
+			if (nivelBarco < 5) {
+				if (dinero >= next_level[nivelBarco]) {
+					nivelBarco++;
+					updateDinero(-next_level[nivelBarco]);
+					document.getElementById("nivel_barco").innerText = nivelBarco;
+					document.getElementById("next_level").innerText = next_level[nivelBarco + 1];
+					document.getElementById("tiradas").innerText = (tiradas[nivelBarco + 1]);
+					document.getElementById("max_carga").innerText = (maxProductosPorNivel[nivelBarco]);
+					document.getElementById("max_cañon").innerText = (maxCañones[nivelBarco]);
+					document.getElementById("max_municion").innerText = (maxMunicion[nivelBarco]);
+					alert("Nivel del barco mejorado a " + nivelBarco);
+				}
+				else {
+					alert("No tienes suficiente dinero para mejorar el barco");
+				}
+			} else {
+				alert("El barco ya está en el nivel máximo");
+			}
+		}
+	</script>
+</body>
+
+</html>
