@@ -1,9 +1,13 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, '.')));
 app.use(express.json());
+
+const PORT = 3000;
 
 function readDB() {
   const fs = require('fs');
@@ -45,6 +49,7 @@ app.get('/money/:group',
     })
   }
 );
+
 app.post('/money',
   (req, res) => {
     const { body } = req;
@@ -342,6 +347,9 @@ app.post('/products/sell',
 )
 
 
-app.listen(3000, () => {
-  console.log('Servidor escuchando en el puerto 3000');
+app.listen(PORT, () => {
+  console.log(`
+Servidor escuchando en puerto ${PORT}
+Juego disponible en: http://localhost:${PORT}/index.html
+`);
 });
