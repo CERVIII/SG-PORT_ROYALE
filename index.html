@@ -649,6 +649,9 @@
 	</div>
 
 	<script>
+		const PORT = 3000;
+		const ENDPOINT = `http://localhost:${PORT}`
+
 		//TODO: ADD SPECIFIC GROUP
 		var dinero = getDinero({
 			group: 1,
@@ -706,7 +709,7 @@
 			group,
 		}) {			 
 			const res = await fetch(
-				'http://localhost:3000/money',
+				`${ENDPOINT}/money`,
 				{
 					method: 'POST',
 					headers: {
@@ -730,7 +733,7 @@
 			group,
 		}) {			 
 			const res = await fetch(
-				`http://localhost:3000/money/${group}`,
+				`${ENDPOINT}/money/${group}`,
 				{
 					method: 'GET',
 					headers: {
@@ -751,7 +754,7 @@
 			group,
 		}) {			 
 			const res = await fetch(
-				`http://localhost:3000/level/${group}`,
+				`${ENDPOINT}/level/${group}`,
 				{
 					method: 'GET',
 					headers: {
@@ -830,7 +833,7 @@
 		async function mejorarNivel({group}) {
 			//TODO: ADD SPECIFIC GROUP
 			const res = await fetch(
-				'http://localhost:3000/level',
+				`${ENDPOINT}/level`,
 				{
 					method: 'POST',
 					headers: {
