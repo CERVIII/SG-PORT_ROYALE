@@ -24,8 +24,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-
-
 // MONEY
 app.get('/money/:group',
   (req, res) => {
@@ -85,7 +83,6 @@ const next_level = {
   6: 'MAX LEVEL'
 };
 
-
 app.get('/level/:group',
   (req, res) => {
     const { params } = req;
@@ -108,6 +105,7 @@ app.get('/level/:group',
     })
   }
 );
+
 app.post('/level',
   (req, res) => {
     const { body } = req;
@@ -163,6 +161,7 @@ const maxProductosPorNivel = {
   4: 150,
   5: 300
 };
+
 const maxCañones = {
   1: 10,
   2: 15,
@@ -170,6 +169,7 @@ const maxCañones = {
   4: 25,
   5: 25
 };
+
 const maxMunicion = {
   1: 20,
   2: 25,
@@ -177,7 +177,6 @@ const maxMunicion = {
   4: 35,
   5: 35
 };
-
 
 app.get('/products/:group',
   (req, res) => {
@@ -202,7 +201,8 @@ app.get('/products/:group',
         storage: db[group].storage,
       }
     })
-  });
+  }
+);
 
 // BUY BOAT
 /**
@@ -350,6 +350,6 @@ app.post('/products/sell',
 app.listen(PORT, () => {
   console.log(`
 Servidor escuchando en puerto ${PORT}
-Juego disponible en: http://localhost:${PORT}/index.html
+Tablero disponible en: http://localhost:${PORT}/index.html
 `);
 });
