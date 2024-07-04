@@ -29,23 +29,20 @@
 
 <body>
 	<div id="Grupo" style="text-align: center;">
-		<form action="#">
-			<select name="grupo" id="grupo">
-				<option value="1">Grupo 1</option>
-				<option value="2">Grupo 2</option>
-				<option value="3">Grupo 3</option>
-				<option value="4">Grupo 4</option>
-				<option value="5">Grupo 5</option>
-				<option value="6">Grupo 6</option>
-				<option value="7">Grupo 7</option>
-				<option value="8">Grupo 8</option>
-				<option value="9">Grupo 9</option>
-				<option value="10">Grupo 10</option>
-				<option value="11">Grupo 11</option>
-				<option value="12">Grupo 12</option>
-			</select>
-			<input type="submit" value="Enviar" />
-		</form>
+		<select name="group" id="group">
+			<option value="1">Grupo 1</option>
+			<option value="2">Grupo 2</option>
+			<option value="3">Grupo 3</option>
+			<option value="4">Grupo 4</option>
+			<option value="5">Grupo 5</option>
+			<option value="6">Grupo 6</option>
+			<option value="7">Grupo 7</option>
+			<option value="8">Grupo 8</option>
+			<option value="9">Grupo 9</option>
+			<option value="10">Grupo 10</option>
+			<option value="11">Grupo 11</option>
+			<option value="12">Grupo 12</option>
+		</select>
 	</div>
 	<div id="Grupo_1" style="text-align: center;">
 		<table>
@@ -722,10 +719,31 @@
 			cell.innerText = currentValue + amount;
 		}
 
+		async function getGroup() {
+			const grupo = document.getElementById("group");
+			console.log(grupo);
+			const res = await fetch(
+				`${ENDPOINT}/money/${grupo}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
+			);
+			if (!res.ok) {
+				alert("error al obtener el dinero");
+			}
+			const data = await res.json();
+			const group = data.result;
+			document.getElementById("grupo").innerText = group;
+			return group;
+		}
+
 		async function updateDinero({
 			amount,
 			group,
-		}) {			 
+		}) {
 			const res = await fetch(
 				`${ENDPOINT}/money`,
 				{
@@ -739,7 +757,7 @@
 					})
 				}
 			);
-			if(!res.ok) {
+			if (!res.ok) {
 				alert("error al actualizar el dinero");
 			}
 			const data = await res.json();
@@ -749,7 +767,7 @@
 
 		async function getDinero({
 			group,
-		}) {			 
+		}) {
 			const res = await fetch(
 				`${ENDPOINT}/money/${group}`,
 				{
@@ -759,7 +777,7 @@
 					}
 				}
 			);
-			if(!res.ok) {
+			if (!res.ok) {
 				alert("error al obtener el dinero");
 			}
 			const data = await res.json();
@@ -770,7 +788,7 @@
 
 		async function getLevel({
 			group,
-		}) {			 
+		}) {
 			const res = await fetch(
 				`${ENDPOINT}/level/${group}`,
 				{
@@ -780,7 +798,7 @@
 					}
 				}
 			);
-			if(!res.ok) {
+			if (!res.ok) {
 				alert("error al obtener el nivel del barco");
 			}
 			const data = await res.json();
@@ -848,7 +866,7 @@
 			updateCell('barco_' + product, -cantidadVendida);
 		}
 
-		async function mejorarNivel({group}) {
+		async function mejorarNivel({ group }) {
 			//TODO: ADD SPECIFIC GROUP
 			const res = await fetch(
 				`${ENDPOINT}/level`,
@@ -863,7 +881,7 @@
 					})
 				}
 			);
-			if(!res.ok) {
+			if (!res.ok) {
 				alert("error al mejorar el nivel del barco");
 			}
 			const data = await res.json();
@@ -874,7 +892,7 @@
 			const dinero = await getDinero({
 				group: 1,
 			});
-			alert(`El nivel del barco actual es ${level} y el dinero actual es ${dinero}` );
+			alert(`El nivel del barco actual es ${level} y el dinero actual es ${dinero}`);
 		}
 	</script>
 </body>
